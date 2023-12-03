@@ -1,8 +1,8 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { LinearGradient } from "expo-linear-gradient";
+import KakaoLoginButton from "@components/buttons/KakaoLoginButton";
 import { GlobalStyles } from "@constants/styles";
-import KakaoLoginButton from "@components/buttons/KaKaoLoginButton";
+import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
+import { Image, StyleSheet, Text } from "react-native";
 
 type Props = {};
 
