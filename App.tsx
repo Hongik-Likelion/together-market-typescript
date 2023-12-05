@@ -1,3 +1,7 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import SignUpRoutes from "@routes/SignUpRoutes";
+import { RootStackParamList } from "@routes/types";
 import OnBoardingScreen from "@screens/OnBoardingScreen";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -6,11 +10,9 @@ import { StyleSheet, View } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function App() {
-  // TODO 1. 폰트 추가
-  // TODO 2. 글로벌 스타일 추가
-  // TODO 3. 스플래시 이미지 추가
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
+export default function App() {
   const [isFontsLoaded] = useFonts({
     "SUIT-500": require("./assets/fonts/SUIT-Medium.ttf"),
     "SUIT-600": require("./assets/fonts/SUIT-SemiBold.ttf"),
@@ -28,7 +30,15 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <OnBoardingScreen />
+      <NavigationContainer>
+        <RootStack.Navigator
+          initialRouteName="OnBoarding"
+          screenOptions={{ headerShown: false }}
+        >
+          <RootStack.Screen name="OnBoarding" component={OnBoardingScreen} />
+          <RootStack.Screen name="SignUp" component={SignUpRoutes} />
+        </RootStack.Navigator>
+      </NavigationContainer>
     </View>
   );
 }
