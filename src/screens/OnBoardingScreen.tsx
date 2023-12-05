@@ -1,12 +1,18 @@
 import KakaoLoginButton from "@components/buttons/KakaoLoginButton";
 import { GlobalStyles } from "@constants/styles";
+import { useNavigation } from "@react-navigation/native";
+import { OnBoardingScreenNavigationProps } from "@routes/types";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { Image, StyleSheet, Text } from "react-native";
 
-type Props = {};
+const OnBoardingScreen = () => {
+  const navigation = useNavigation<OnBoardingScreenNavigationProps>();
 
-const OnBoardingScreen = (props: Props) => {
+  const loginHandler = () => {
+    navigation.navigate("SignUp", { screen: "SignUpTypes" });
+  };
+
   return (
     <LinearGradient
       style={styles.rootContainer}
@@ -19,7 +25,7 @@ const OnBoardingScreen = (props: Props) => {
       />
 
       <Text style={styles.loginInfoText}>카카오 로그인으로 시작해보세요!</Text>
-      <KakaoLoginButton style={styles.button} />
+      <KakaoLoginButton style={styles.button} onPress={loginHandler} />
     </LinearGradient>
   );
 };
