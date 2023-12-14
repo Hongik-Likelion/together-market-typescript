@@ -7,7 +7,6 @@ import React, { useState } from "react";
 import {
   Dimensions,
   Pressable,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
@@ -31,8 +30,7 @@ const SignUpTypesScreen = () => {
   });
 
   const handleNextScreen = () => {
-    if (pressedButton.customerTypeButton) navigate("CustomerSignUp");
-    if (pressedButton.ownerTypeButton) navigate("OwnerSignUp");
+    if (pressedButton.customerTypeButton) navigate("FavoriteMarket");
   };
 
   const handleSignUpTypeSelect = (type: SignUpType) => {
@@ -52,93 +50,90 @@ const SignUpTypesScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.iosContainer}>
-      <View style={styles.container}>
-        <View style={styles.contentContainer}>
-          <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>{userName}님,</Text>
-            <Text style={styles.infoText}>
-              <Text style={[styles.infoText, styles.textHighlight]}>유형</Text>
-              을 선택해주세요!
-            </Text>
-            <Text style={styles.cautionText}>
-              한 가지 유형을 선택해주세요. (필수)
-            </Text>
-          </View>
-          <View style={styles.buttons}>
-            <Pressable
+    <View style={styles.container}>
+      <View style={styles.contentContainer}>
+        <View style={styles.infoContainer}>
+          <Text style={styles.infoText}>{userName}님,</Text>
+          <Text style={styles.infoText}>
+            <Text style={[styles.infoText, styles.textHighlight]}>유형</Text>을
+            선택해주세요!
+          </Text>
+          <Text style={styles.cautionText}>
+            한 가지 유형을 선택해주세요. (필수)
+          </Text>
+        </View>
+        <View style={styles.buttons}>
+          <Pressable
+            style={
+              pressedButton.ownerTypeButton
+                ? [styles.button, styles.buttonHighlight]
+                : styles.button
+            }
+            onPress={handleSignUpTypeSelect.bind(this, "owner")}
+          >
+            <Ionicons
+              style={styles.checkIcon}
+              name="checkmark-outline"
+              size={24}
+              color={
+                pressedButton.ownerTypeButton
+                  ? GlobalStyles.colors.main01
+                  : GlobalStyles.colors.gray01
+              }
+            />
+            <Text
               style={
                 pressedButton.ownerTypeButton
-                  ? [styles.button, styles.buttonHighlight]
-                  : styles.button
+                  ? [styles.buttonText, styles.buttonTextHighlight]
+                  : styles.buttonText
               }
-              onPress={handleSignUpTypeSelect.bind(this, "owner")}
             >
-              <Ionicons
-                style={styles.checkIcon}
-                name="checkmark-outline"
-                size={24}
-                color={
-                  pressedButton.ownerTypeButton
-                    ? GlobalStyles.colors.main01
-                    : GlobalStyles.colors.gray01
-                }
-              />
-              <Text
-                style={
-                  pressedButton.ownerTypeButton
-                    ? [styles.buttonText, styles.buttonTextHighlight]
-                    : styles.buttonText
-                }
-              >
-                사장님
-              </Text>
-            </Pressable>
-            <Pressable
+              사장님
+            </Text>
+          </Pressable>
+          <Pressable
+            style={
+              pressedButton.customerTypeButton
+                ? [styles.button, styles.buttonHighlight]
+                : styles.button
+            }
+            onPress={handleSignUpTypeSelect.bind(this, "customer")}
+          >
+            <Ionicons
+              style={styles.checkIcon}
+              name="checkmark-outline"
+              size={24}
+              color={
+                pressedButton.customerTypeButton
+                  ? GlobalStyles.colors.main01
+                  : GlobalStyles.colors.gray01
+              }
+            />
+            <Text
               style={
                 pressedButton.customerTypeButton
-                  ? [styles.button, styles.buttonHighlight]
-                  : styles.button
+                  ? [styles.buttonText, styles.buttonTextHighlight]
+                  : styles.buttonText
               }
-              onPress={handleSignUpTypeSelect.bind(this, "customer")}
             >
-              <Ionicons
-                style={styles.checkIcon}
-                name="checkmark-outline"
-                size={24}
-                color={
-                  pressedButton.customerTypeButton
-                    ? GlobalStyles.colors.main01
-                    : GlobalStyles.colors.gray01
-                }
-              />
-              <Text
-                style={
-                  pressedButton.customerTypeButton
-                    ? [styles.buttonText, styles.buttonTextHighlight]
-                    : styles.buttonText
-                }
-              >
-                손님
-              </Text>
-            </Pressable>
-          </View>
-        </View>
-        <View style={styles.navigationContainer}>
-          <SignUpNavigation
-            onPressNext={handleNextScreen}
-            activate={isSignUpTypeSelected}
-          />
+              손님
+            </Text>
+          </Pressable>
         </View>
       </View>
-    </SafeAreaView>
+      <View style={styles.navigationContainer}>
+        <SignUpNavigation
+          onPressNext={handleNextScreen}
+          highlight={isSignUpTypeSelected}
+        />
+      </View>
+    </View>
   );
 };
 
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
-  iosContainer: { flex: 1, backgroundColor: "white" },
   container: {
     flex: 1,
     justifyContent: "center",
@@ -146,6 +141,8 @@ const styles = StyleSheet.create({
 
     paddingTop: StatusBar.currentHeight,
     paddingHorizontal: 18,
+
+    backgroundColor: "white",
   },
   contentContainer: {
     flex: 2,

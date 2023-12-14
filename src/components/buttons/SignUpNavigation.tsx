@@ -3,14 +3,20 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { SignUpScreenNavigationProps } from "@routes/types";
 import React from "react";
-import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
+import MainButton from "./MainButton";
 
 type Props = {
   onPressNext: () => void;
-  activate: boolean;
+  disabled?: boolean;
+  highlight?: boolean;
 };
 
-const SignUpNavigation = ({ onPressNext, activate }: Props) => {
+const SignUpNavigation = ({
+  onPressNext,
+  disabled = false,
+  highlight = false,
+}: Props) => {
   const { goBack } = useNavigation<SignUpScreenNavigationProps>();
 
   const handlePrevScreen = () => goBack();
@@ -27,23 +33,15 @@ const SignUpNavigation = ({ onPressNext, activate }: Props) => {
       >
         이전으로
       </Ionicons>
-      <Pressable
-        style={
-          activate ? [styles.button, styles.buttonActivate] : styles.button
-        }
+
+      <MainButton
+        style={styles.button}
+        textStyle={styles.buttonText}
+        title="계속하기"
         onPress={onPressNext}
-        disabled={!activate}
-      >
-        <Text
-          style={
-            activate
-              ? [styles.buttonText, styles.buttonTextActivate]
-              : styles.buttonText
-          }
-        >
-          계속하기
-        </Text>
-      </Pressable>
+        highlight={highlight}
+        disabled={disabled}
+      />
     </View>
   );
 };
@@ -59,25 +57,10 @@ const styles = StyleSheet.create({
   },
   button: {
     height: deviceWidth < 380 ? 40 : 48,
-
-    justifyContent: "center",
-    alignItems: "center",
-
-    borderWidth: 1,
-    borderRadius: 8,
-    borderColor: GlobalStyles.colors.main01,
   },
-  buttonActivate: {
-    backgroundColor: GlobalStyles.colors.main01,
-  },
-
   buttonText: {
     color: GlobalStyles.colors.main01,
     fontSize: 18,
     fontFamily: "SUIT-700",
-  },
-
-  buttonTextActivate: {
-    color: "white",
   },
 });

@@ -1,17 +1,24 @@
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { NavigatorScreenParams } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
   OnBoarding: undefined;
   SignUp: NavigatorScreenParams<SignUpParamList>;
 };
 
-export type SignUpParamList = {
+type SignUpParamList = {
   SignUpTypes: undefined;
-  CustomerSignUp: undefined;
-  OwnerSignUp: undefined;
+
+  FavoriteMarket: undefined;
+  MarketSelect: undefined;
+  GuideSelect: undefined;
 };
 
+type SignUpNavigationKeys = keyof SignUpParamList;
+
+export { SignUpNavigationKeys, SignUpParamList };
+
+// Navigation props for useNavigation
 type OnBoardingScreenNavigationProps =
   NativeStackNavigationProp<RootStackParamList>;
 
