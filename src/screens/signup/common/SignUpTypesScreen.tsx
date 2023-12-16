@@ -3,6 +3,7 @@ import { GlobalStyles } from "@constants/styles";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { SignUpScreenNavigationProps } from "@routes/types";
+import { SignUpType } from "@store/reducer/SignUpReducer";
 import React, { useState } from "react";
 import {
   Dimensions,
@@ -12,13 +13,13 @@ import {
   Text,
   View,
 } from "react-native";
-
-type SignUpType = "customer" | "owner";
+import { useSignUp } from "src/hook/useSignUp";
 
 const SignUpTypesScreen = () => {
   // 카카오 로그인 사용자 이름
   const userName = "김영희";
 
+  const { handleSignUpType } = useSignUp();
   const { navigate } = useNavigation<SignUpScreenNavigationProps>();
 
   const [isSignUpTypeSelected, setIsSignUpTypeSelected] =
@@ -30,7 +31,14 @@ const SignUpTypesScreen = () => {
   });
 
   const handleNextScreen = () => {
-    if (pressedButton.customerTypeButton) navigate("FavoriteMarket");
+    if (pressedButton.customerTypeButton) {
+      handleSignUpType("customer");
+      navigate("FavoriteMarket");
+    }
+    if (pressedButton.ownerTypeButton) {
+      handleSignUpType("owner");
+      navigate("OwnerMarket");
+    }
   };
 
   const handleSignUpTypeSelect = (type: SignUpType) => {
