@@ -3,14 +3,23 @@ import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { SignUpScreenNavigationProps } from "@routes/types";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { StyleSheet, View } from "react-native";
+import { useSignUp } from "src/hook/useSignUp";
 
-type Props = {
-  totalSignUpStep: number;
-};
+const SignUpHeader = () => {
+  const { signUpType } = useSignUp();
 
-const SignUpHeader = ({ totalSignUpStep }: Props) => {
+  /** 회원가입 타입 선택 화면까지 포함된 값 */
+  const totalCustomerSignUpStep = 3;
+  const totalOwnerSignUpStep = 4;
+
+  const totalSignUpStep = useMemo(
+    () =>
+      signUpType === "owner" ? totalOwnerSignUpStep : totalCustomerSignUpStep,
+    [signUpType]
+  );
+
   const { getState } = useNavigation<SignUpScreenNavigationProps>();
 
   const currentStep = getState().index;
@@ -18,8 +27,6 @@ const SignUpHeader = ({ totalSignUpStep }: Props) => {
     { length: totalSignUpStep },
     (_, index) => index
   );
-
-  console.log(currentStep);
 
   return (
     <View style={styles.headerContainer}>

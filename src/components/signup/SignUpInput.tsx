@@ -23,7 +23,7 @@ type Props = InputProps | NavigationProps;
 
 const SignUpInput = ({
   children,
-  value = "input",
+  value,
   onNavigate = null,
   keyboardType,
   placeholder,
