@@ -10,6 +10,11 @@ type SignUpParamList = {
   SignUpTypes: undefined;
 
   FavoriteMarket: undefined;
+
+  OwnerMarket: undefined;
+  ProductionTypes: undefined;
+  StoreDetail: undefined;
+
   MarketSelect: undefined;
   GuideSelect: undefined;
 };
