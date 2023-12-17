@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import MainRoutes from "@routes/MainRoutes";
 import SignUpRoutes from "@routes/SignUpRoutes";
 import { RootStackParamList } from "@routes/types";
 import OnBoardingScreen from "@screens/OnBoardingScreen";
@@ -37,6 +38,7 @@ export default function App() {
         >
           <RootStack.Screen name="OnBoarding" component={OnBoardingScreen} />
           <RootStack.Screen name="SignUp" component={SignUpRoutes} />
+          <RootStack.Screen name="Main" component={MainRoutes} />
         </RootStack.Navigator>
       </NavigationContainer>
     </View>
