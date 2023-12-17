@@ -1,13 +1,13 @@
 import KakaoLoginButton from "@components/buttons/KakaoLoginButton";
 import { GlobalStyles } from "@constants/styles";
 import { useNavigation } from "@react-navigation/native";
-import { OnBoardingScreenNavigationProps } from "@routes/types";
+import { RootNavigationProps } from "@routes/types";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { Image, StyleSheet, Text } from "react-native";
 
 const OnBoardingScreen = () => {
-  const navigation = useNavigation<OnBoardingScreenNavigationProps>();
+  const navigation = useNavigation<RootNavigationProps>();
 
   const loginHandler = () => {
     navigation.navigate("SignUp", { screen: "SignUpTypes" });
